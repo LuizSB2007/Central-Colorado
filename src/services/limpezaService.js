@@ -56,17 +56,39 @@ export const limpezaService = {
   },
 
   /**
-   * Cria as atribuições para o ciclo atual, se não existirem
+   * Cria as atribuições para o ciclo atual, se não existirem.
    * A fórmula é: Posição_Cômodo = (Índice_Morador + Ciclo_Atual) % 10
+   *
+   * IMPORTANTE: esta versão só INSERE quem ainda não tem atribuição
+   * nesse ciclo, então funciona corretamente mesmo quando um morador
+   * é cadastrado depois que o ciclo já foi gerado pela primeira vez.
+   * Não depende de nenhuma constraint UNIQUE existir no banco (ao
+   * contrário do upsert com onConflict, que falha silenciosamente
+   * se a constraint não existir).
    */
   async generateAssignmentsForCycle(cycleNumber) {
     const rooms = await this.getRooms();
     const residents = await this.getResidents();
+    const existentes = await this.getAssignments(cycleNumber);
 
-    // Se não tiver 10 moradores e 10 comodos, ajusta o modulo pro tamanho real
+    if (rooms.length === 0 || residents.length === 0) {
+      return existentes;
+    }
+
+    const jaTemAtribuicao = new Set(existentes.map((a) => a.user_id));
     const modulo = Math.max(rooms.length, 1);
 
-    const assignments = residents.map((resident, index) => {
+    // Mantém o índice baseado na lista COMPLETA de residentes, na ordem
+    // original, para não alterar a posição de quem já foi atribuído.
+    const faltantes = residents
+      .map((resident, index) => ({ resident, index }))
+      .filter(({ resident }) => !jaTemAtribuicao.has(resident.id));
+
+    if (faltantes.length === 0) {
+      return existentes;
+    }
+
+    const novasAtribuicoes = faltantes.map(({ resident, index }) => {
       const roomIndex = (index + cycleNumber) % modulo;
       const assignedRoom = rooms[roomIndex];
 
@@ -78,14 +100,14 @@ export const limpezaService = {
       };
     });
 
-    // Inserir os registros no banco ignorando duplicados caso já exista
     const { data, error } = await supabase
       .from('cleaning_assignments')
-      .upsert(assignments, { onConflict: 'user_id,cycle_number', ignoreDuplicates: true })
-      .select();
+      .insert(novasAtribuicoes)
+      .select('*, cleaning_rooms(*), profiles(*)');
 
     if (error) throw error;
-    return data;
+
+    return [...existentes, ...data];
   },
 
   /**
@@ -96,7 +118,7 @@ export const limpezaService = {
     const startDate = new Date('2026-01-01T00:00:00Z');
     const now = new Date();
     const diffTime = Math.abs(now - startDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     // Cada ciclo dura 15 dias
     const currentCycle = Math.floor(diffDays / 15);
     return currentCycle;

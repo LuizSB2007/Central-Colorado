@@ -15,12 +15,11 @@ export default function TarefasLimpeza() {
       const currentCycle = limpezaService.getCurrentCycleNumber();
       setCycle(currentCycle);
 
-      let items = await limpezaService.getAssignments(currentCycle);
-
-      if (items.length === 0) {
-        await limpezaService.generateAssignmentsForCycle(currentCycle);
-        items = await limpezaService.getAssignments(currentCycle);
-      }
+      // Sempre garante as atribuições faltantes (ex.: um morador novo
+      // cadastrado depois que o ciclo já tinha sido gerado). A função
+      // é idempotente: só insere quem ainda não tem tarefa nesse ciclo.
+      await limpezaService.generateAssignmentsForCycle(currentCycle);
+      const items = await limpezaService.getAssignments(currentCycle);
 
       setTarefas(items);
     } catch (error) {
