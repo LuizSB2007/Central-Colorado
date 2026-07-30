@@ -103,20 +103,19 @@ export default function Compras() {
       {/* Header */}
       <div className="mb-6 flex justify-between items-start">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 mb-1">Compras 🛒</h1>
+          <h1 className="text-2xl font-bold text-slate-800 mb-1">Compras</h1>
           <p className="text-slate-500 text-sm">
             {pendentes} {pendentes === 1 ? 'item faltando' : 'itens faltando'} · {comprados} comprados
           </p>
         </div>
         <button
           onClick={toggleModoSelecao}
-          className={`text-xs font-bold px-3 py-2 rounded-xl transition-all border ${
-            modoSelecao
+          className={`text-xs font-bold px-3 py-2 rounded-xl transition-all border ${modoSelecao
               ? 'bg-orange-500 text-white border-orange-500'
               : 'bg-white text-slate-600 border-slate-200 shadow-sm'
-          }`}
+            }`}
         >
-          {modoSelecao ? '✓ Selecionar' : '⬜ Selecionar'}
+          {modoSelecao ? '✓ Selecionar' : 'Selecionar'}
         </button>
       </div>
 
@@ -152,14 +151,12 @@ export default function Compras() {
           <div
             key={item.id}
             onClick={() => toggleItem(item.id)}
-            className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all shadow-sm ${
-              selecionados.has(item.id) ? 'bg-orange-50 border-orange-300' : 'bg-white border-slate-200'
-            }`}
+            className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all shadow-sm ${selecionados.has(item.id) ? 'bg-orange-50 border-orange-300' : 'bg-white border-slate-200'
+              }`}
           >
             {modoSelecao ? (
-              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
-                selecionados.has(item.id) ? 'bg-orange-500 border-orange-500' : 'border-slate-300'
-              }`}>
+              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${selecionados.has(item.id) ? 'bg-orange-500 border-orange-500' : 'border-slate-300'
+                }`}>
                 {selecionados.has(item.id) && <Check size={14} className="text-white" strokeWidth={3} />}
               </div>
             ) : (
@@ -179,14 +176,12 @@ export default function Compras() {
               <div
                 key={item.id}
                 onClick={() => toggleItem(item.id)}
-                className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
-                  selecionados.has(item.id) ? 'bg-orange-50 border-orange-300' : 'bg-slate-50 border-slate-100 opacity-60'
-                }`}
+                className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${selecionados.has(item.id) ? 'bg-orange-50 border-orange-300' : 'bg-slate-50 border-slate-100 opacity-60'
+                  }`}
               >
                 {modoSelecao ? (
-                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                    selecionados.has(item.id) ? 'bg-orange-500 border-orange-500' : 'border-slate-300'
-                  }`}>
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${selecionados.has(item.id) ? 'bg-orange-500 border-orange-500' : 'border-slate-300'
+                    }`}>
                     {selecionados.has(item.id) && <Check size={14} className="text-white" strokeWidth={3} />}
                   </div>
                 ) : (

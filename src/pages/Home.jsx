@@ -37,21 +37,21 @@ export default function Home({ openAvisoModal }) {
     <div className="p-6">
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 mb-1">Olá, {profile?.full_name || profile?.nickname || 'Morador'}! 👋</h1>
+          <h1 className="text-2xl font-bold text-slate-800 mb-1">Olá, {profile?.full_name || profile?.nickname || 'Morador'}! </h1>
           <p className="text-slate-500 text-sm">Aqui está o resumo da república hoje.</p>
         </div>
       </div>
 
       {/* Widget modificado/removido conforme a nova estrutura, pode precisar adaptar por dentro se buscar algo do banco */}
       <NextEventWidget />
-      
+
       {/* O TaskWidget da home dependia da escala, vamos ocultar por hora pra simplificar e usar a aba Limpeza, 
           ou você pode recriá-lo puxando o ciclo atual. */}
 
       <div className="mt-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="font-bold text-slate-800 text-lg">Mural de Avisos</h2>
-          <button 
+          <button
             onClick={() => {
               openAvisoModal();
               // Forçar reload após fechar
@@ -62,19 +62,19 @@ export default function Home({ openAvisoModal }) {
             <Plus size={14} strokeWidth={2.5} /> Novo Aviso
           </button>
         </div>
-        
+
         <div className="flex flex-col">
           {loading ? (
             <p className="text-sm text-slate-500 text-center py-4">Carregando...</p>
           ) : (
             avisosOrdenados.map(aviso => (
-              <AvisoCard 
-                key={aviso.id} 
-                aviso={aviso} 
+              <AvisoCard
+                key={aviso.id}
+                aviso={aviso}
                 onEdit={() => {
-                   openAvisoModal(aviso);
-                   setTimeout(carregarAvisos, 2000);
-                }} 
+                  openAvisoModal(aviso);
+                  setTimeout(carregarAvisos, 2000);
+                }}
               />
             ))
           )}

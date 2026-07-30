@@ -16,7 +16,7 @@ export default function TarefasLimpeza() {
       setCycle(currentCycle);
 
       let items = await limpezaService.getAssignments(currentCycle);
-      
+
       if (items.length === 0) {
         await limpezaService.generateAssignmentsForCycle(currentCycle);
         items = await limpezaService.getAssignments(currentCycle);
@@ -40,7 +40,7 @@ export default function TarefasLimpeza() {
 
     try {
       const updated = await limpezaService.toggleConcluido(id, !currentStatus);
-      setTarefas(prev => 
+      setTarefas(prev =>
         prev.map(t => t.id === id ? { ...t, is_completed: updated.is_completed, updated_at: updated.updated_at } : t)
       );
     } catch (error) {
@@ -58,7 +58,7 @@ export default function TarefasLimpeza() {
     <div className="p-6">
       <div className="mb-6 flex justify-between items-start">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 mb-1">Limpeza 🧹</h1>
+          <h1 className="text-2xl font-bold text-slate-800 mb-1">Limpeza </h1>
           <p className="text-slate-500 text-sm">Escala rotativa da casa.</p>
         </div>
         <div className="bg-orange-100 p-2 rounded-full cursor-pointer" onClick={carregarEscala}>
@@ -90,23 +90,21 @@ export default function TarefasLimpeza() {
           const isLoggedUser = tarefa.user_id === profile?.id;
           const concluidaFormatada = tarefa.updated_at
             ? new Date(tarefa.updated_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) +
-              ' · ' +
-              new Date(tarefa.updated_at).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })
+            ' · ' +
+            new Date(tarefa.updated_at).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })
             : null;
 
           return (
             <div
               key={tarefa.id}
               onClick={() => toggleTarefa(tarefa.id, tarefa.is_completed, tarefa.user_id)}
-              className={`p-4 rounded-2xl flex items-center justify-between border transition-all shadow-sm ${
-                isLoggedUser ? 'cursor-pointer active:scale-[0.98]' : 'opacity-80'
-              } ${
-                tarefa.is_completed
+              className={`p-4 rounded-2xl flex items-center justify-between border transition-all shadow-sm ${isLoggedUser ? 'cursor-pointer active:scale-[0.98]' : 'opacity-80'
+                } ${tarefa.is_completed
                   ? 'bg-green-50 border-green-200'
                   : isLoggedUser
-                  ? 'border-orange-300 bg-orange-50/30'
-                  : 'border-slate-100 bg-white'
-              }`}
+                    ? 'border-orange-300 bg-orange-50/30'
+                    : 'border-slate-100 bg-white'
+                }`}
             >
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-inner bg-slate-400 overflow-hidden">

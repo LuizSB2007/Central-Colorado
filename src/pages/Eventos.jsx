@@ -27,10 +27,10 @@ export default function Eventos({ openEventoModal }) {
     <div className="p-6">
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 mb-1">Agenda 📅</h1>
+          <h1 className="text-2xl font-bold text-slate-800 mb-1">Agenda</h1>
           <p className="text-slate-500 text-sm">Próximos eventos da rep.</p>
         </div>
-        <button 
+        <button
           onClick={() => {
             openEventoModal();
             setTimeout(carregarEventos, 2000);
@@ -44,13 +44,13 @@ export default function Eventos({ openEventoModal }) {
       <div className="flex flex-col mt-4">
         {loading && <p className="text-center text-sm text-slate-500 py-4">Carregando...</p>}
         {!loading && eventos.map(evento => (
-          <EventoCard 
-            key={evento.id} 
-            evento={evento} 
+          <EventoCard
+            key={evento.id}
+            evento={evento}
             onEdit={() => {
               openEventoModal(evento);
               setTimeout(carregarEventos, 2000);
-            }} 
+            }}
           />
         ))}
         {!loading && eventos.length === 0 && (

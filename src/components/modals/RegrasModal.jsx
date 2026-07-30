@@ -5,37 +5,42 @@ import { BookOpen, Trophy, Zap, AlertTriangle } from 'lucide-react';
 const regras = [
   {
     num: 1,
-    texto: 'Todos os erros exigem evidência em foto para serem computados no placar.',
-    icone: '📸',
+    texto: 'Pontuação de 10+ pontos: Multa de R$15 + Lavar toda a louça acumulada por 1 dia.',
+    icone: '⚠️',
   },
   {
     num: 2,
-    texto: 'O morador com mais pontos ao final do mês paga 1 fardo de cerveja para a rep.',
-    icone: '🍺',
+    texto: 'Pontuação de 15+ pontos: Multa de R$30 (escalonada ao final do mês) + Limpeza da pior área da casa por 1 mês.',
+    icone: '🚨',
   },
   {
     num: 3,
-    texto: 'Erros de limpeza (não fez a limpeza semanal) contam pontos em dobro.',
-    icone: '🧹',
+    texto: 'Pontuação de 20+ pontos: Multa de R$45 (escalonada ao final do mês) + Limpeza total das louças do próximo churrasco + Semáforo durante 1 hora.',
+    icone: '🛑',
   },
   {
     num: 4,
-    texto: 'Contestações são aceitas por até 24h após o registro. Após esse prazo, o ponto é definitivo.',
-    icone: '⚖️',
+    texto: 'O Babá do Mês (quem tomou mais pontos) deverá lavar a sua própria louça.',
+    icone: '🧽',
   },
   {
     num: 5,
-    texto: 'Nenhum morador pode registrar vacilo em si mesmo — sempre um terceiro deve registrar.',
-    icone: '🤝',
+    texto: 'Benefício: Escolher 1 membro entre as 3 piores pontuações para passar uma reunião de sunga, óculos e touca de natação.',
+    icone: '🩲',
   },
   {
     num: 6,
-    texto: 'Portão aberto ou tranca destravada após as 23h conta o dobro de pontos.',
-    icone: '🔒',
+    texto: 'Benefício: Troca de área da limpeza à sua escolha entre as 3 piores pontuações do mês (uso único).',
+    icone: '🔄',
   },
   {
     num: 7,
-    texto: 'O ranking é zerado no início de cada mês. Histórico acumulado é mantido.',
+    texto: 'Benefício: Uma resenha do mês sem ter que pagar (Conversa) + Foto na parede da sala de "Laranja do Mês".',
+    icone: '🍊',
+  },
+  {
+    num: 8,
+    texto: 'As pontuações resetam mensalmente.',
     icone: '📅',
   },
 ];

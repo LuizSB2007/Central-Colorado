@@ -43,7 +43,7 @@ export default function Vacilometro() {
       {/* Header */}
       <div className="mb-6 flex justify-between items-start">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 mb-1">Babalorado 🏆</h1>
+          <h1 className="text-2xl font-bold text-slate-800 mb-1">Babalorado</h1>
           <p className="text-slate-500 text-sm">Ranking de convivência da rep.</p>
         </div>
         <button
@@ -132,7 +132,7 @@ export default function Vacilometro() {
           className="flex items-center gap-2 text-slate-400 hover:text-orange-500 text-sm font-semibold transition-colors py-2 px-4 rounded-xl hover:bg-orange-50"
         >
           <ScrollText size={16} />
-          📜 Regras do Jogo
+          Regras do Jogo
         </button>
       </div>
 
